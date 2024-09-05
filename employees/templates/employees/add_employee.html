@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Add Employee{% endblock title %}
+{% block body %}
+<div class="my-3 container">
+    <h4>Add Employee</h4>
+    <form method='POST' action='/employees/add_employee'>
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+                {% if field.name not in  'photo user' %}
+                <div class="col-md-4 mb-2">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <button type='submit' class='btn btn-primary px-5'
+            onclick="return confirm('Confirm the data before submit. Click OK to continue ?')">Add</button>
+    </form>
+</div>
+
+{% endblock body %}

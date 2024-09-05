@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}All Employees{% endblock title %}
+{% block body %}
+<div class="my-3 container-fluid">
+    <h4>All Employees ({{total_emp_nos}})</h4>
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if employees.has_previous %}
+                    <li class="page-item"><a class='page-link' href="?page=1">First</a></li>
+                    <li class="page-item"><a class='page-link' href="?page={{ employees.previous_page_number }}"><i class="bi bi-caret-left-fill"></i></a></li>
+                {% endif %}
+                <span class="current mx-3">
+                    Page {{ employees.number }} of {{ employees.paginator.num_pages }}
+                </span>
+                {% if employees.has_next %}
+                    <li class='page-item'><a class='page-link' href="?page={{ employees.next_page_number }}"><i class="bi bi-caret-right-fill"></i></a></li>
+                    <li class='page-item'><a class='page-link' href="?page={{ employees.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Emp No</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Deptt</th>
+                    <th>Posting Place</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th style='min-width:150px'>Remark</th>
+                    <th style='min-width:150px'>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empl in employees %}
+                <tr>
+                    {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
+                    <td>{{ empl.id }}</td>
+                    <td>{{ empl.emp_no }}</td>
+                    <td>{{ empl.name }}</td>
+                    <td>{{ empl.designation }}</td>
+                    <td>{{ empl.department }}</td>
+                    <td>{{ empl.posting_place }}</td>
+                    <td>{{ empl.phone }}</td>
+                    <td>{{ empl.email }}</td>
+                    <td>{{ empl.remark }}</td>
+                    <td><a href="/employees/edit_employee?emp_id={{empl.id}}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if employees.has_previous %}
+                    <li class="page-item"><a class='page-link' href="?page=1">First</a></li>
+                    <li class="page-item"><a class='page-link' href="?page={{ employees.previous_page_number }}"><i class="bi bi-caret-left-fill"></i></a></li>
+                {% endif %}
+                <span class="current mx-3">
+                    Page {{ employees.number }} of {{ employees.paginator.num_pages }}
+                </span>
+                {% if employees.has_next %}
+                    <li class='page-item'><a class='page-link' href="?page={{ employees.next_page_number }}"><i class="bi bi-caret-right-fill"></i></a></li>
+                    <li class='page-item'><a class='page-link' href="?page={{ employees.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <form action="/employees/all_employees" method="get">
+            <input type="number" name='page' placeholder="Page number">
+            <button class='btn btn-sm btn-primary'>Goto Page</button>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

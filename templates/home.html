@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}DMRA{% endblock title %}
+{% block body %}
+<div class='container mb-5'>
+    <h4 class='text-center text-success mt-1'>DMRA</h4>
+    
+    <div class="row gy-3 text-center text-primary">
+        <div class="col-md-3 col-6">
+            <div class='border rounded border-primary h-100 cursor-pointer py-2' onclick="window.location.href='/employees/';">
+                <i class="bi bi-building-fill"></i><br>All Employees
+            </div>
+        </div>
+
+        
+
+    </div>
+    <style>
+        .cursor-pointer{
+            cursor: pointer;
+        }.cursor-pointer:hover{
+            background-color: #f5f5f5;
+        }
+    </style>
+</div>
+{% endblock body %}
