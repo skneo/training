@@ -24,8 +24,7 @@ def rename_image(instance, filename):
     return os.path.join(upload_to, filename)
 
 class Employee(models.Model):
-    id = models.AutoField(primary_key=True)
-    emp_no=models.IntegerField()
+    emp_no=models.IntegerField(primary_key=True)
     name = models.CharField(max_length=64)
     designation = models.CharField(max_length=64)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)

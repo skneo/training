@@ -16,24 +16,26 @@
               <li>
                 <a class="dropdown-item" href="/employees/add_employee">Add Employee</a>
               </li>
-              <hr> 
-
-              <li>
-                <a class="dropdown-item" href='/'>Search Student</a>
-              </li>
-              
             </ul>
           </li>
-          
-
-          
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Training</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/training">All Trainings</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/training/add_training">Add Training</a>
+              </li>
+            </ul>
+          </li>
+          {% comment %} <li class="nav-item">
             <a class="nav-link active" href="/help">Help</a>
-          </li> 
+          </li>  {% endcomment %}
         </ul> 
-        <form class="d-flex me-2 mb-2 mb-md-0" role="search" action='/students/view_student'>
+        <form class="d-flex me-2 mb-2 mb-md-0" role="search" action='/employees/view_employee'>
           <div class='input-group'>
-            <input name='student_id' class="form-control" type="number" min='1' aria-label="Search" placeholder='enter student id' required>
+            <input name='emp_no' class="form-control" type="number" min='1' aria-label="Search" placeholder='enter employee no' required>
             <button class="btn btn-primary" type="submit">
               <i class="bi bi-search"></i>
             </button>

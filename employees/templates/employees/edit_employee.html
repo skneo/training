@@ -3,7 +3,7 @@
 {% block body %}
 <div class="my-3 container">
     <h4>Edit employee</h4>
-    <form method='POST' action="/employees/edit_employee?emp_id={{request.GET.emp_id}}" enctype="multipart/form-data">
+    <form method='POST' action="/employees/edit_employee?emp_no={{request.GET.emp_no}}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             {% for field in form %}

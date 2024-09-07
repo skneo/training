@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}View Employee{% endblock title %}
+{% block body %}
+<div class="my-3 container">
+    <div class="d-flex">
+        <a href="#" onclick="window.history.back();" class="btn btn-sm btn-primary mb-3" id='backBtn'> &larr; Back</a>
+        <h4 class='ms-5'>View Employee</h4>
+    </div>
+    
+    <div class="table-responsive row">
+        <div class='col-md-2'>
+            <img src="/media/{{stu.photo}}/" onerror="this.src='/static/sample_photo.png'" alt="student photo" width='100px'>
+        </div>
+        <div class="col-md-6">
+            <table class='table'>
+                <tr>
+                    <th>Employee No: </th>
+                    <td>{{employee.emp_no}}</td>
+                </tr>
+                <tr>
+                    <th>Name: </th>
+                    <td>{{employee.name}}</td>
+                </tr>
+                <tr>
+                    <th>Designation:</th>
+                    <td>{{employee.designation}}</td>
+                </tr>
+                <tr>
+                    <th>Posting Place:</th>
+                    <td>{{employee.posting_place}}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{employee.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Remark:</th>
+                    <td>{{employee.remark}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="table-responsive mt-3">
+        <h5>Trainings Attended</h5>
+        <table id="table_id" class="table-light table table-striped table-bordered w-100">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th style='min-width:200px'>Subject</th>
+                    <th style='min-width:100px'>Start Date</th>
+                    <th>Days</th>
+                    <th style='min-width:150px'>Remark</th>
+                </tr>
+            </thead>
+            <tbody id='tBody'>
+                {% for t in trainings %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{t.training.subject}}</td>
+                    <td>{{t.training.start_date}}</td>
+                    <td>{{t.training.days}}</td>
+                    <td>{{t.training.remark}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    td a {
+        width: 100%;
+        display: block;
+    }
+    td a:hover {
+        font-weight:bold;
+    }
+</style>
+{% endblock body %} 

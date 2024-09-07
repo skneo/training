@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import EmployeeModelForm
 from django.contrib import messages
 from .models import Employee
+from training.models import Trainee
 
 def all_employees(request):
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -30,14 +31,25 @@ def add_employee(request):
         form = EmployeeModelForm()
     return render(request, 'employees/add_employee.html', {'form': form})
 
+def view_employee(request):
+    try:
+        employee = Employee.objects.get(emp_no=int(request.GET['emp_no']))
+        trainings=Trainee.objects.filter(employee__emp_no=request.GET['emp_no'])
+        return render(request, 'employees/view_employee.html', {'employee':employee,'trainings':trainings})
+    except Exception as e:
+        print(e)
+        messages.error(
+            request, f"Error! No Employee found with employee no {request.GET['emp_no']}")
+    return redirect('/employees')
+
 def edit_employee(request):
-    employee = Employee.objects.get(id=request.GET['emp_id'])
+    employee = Employee.objects.get(emp_no=request.GET['emp_no'])
     if request.method == 'POST':
         form = EmployeeModelForm(request.POST, request.FILES, instance=employee)
         photo = request.FILES.get('photo')
         if photo and photo.size > 100 * 1024:  # 100KB
             messages.error(request,f"Error! Photo size should be less than 100 kb")
-            return redirect('/employee/edit_employee/?emp_id='+str(employee.id))
+            return redirect('/employee/edit_employee/?emp_no='+str(employee.id))
         if form.is_valid():
             form.save()
             messages.success(request, "employee updated successfully")

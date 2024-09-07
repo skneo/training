@@ -9,4 +9,5 @@ urlpatterns = [
     # path('logout', views.logout_user),
     # path('change_password', views.change_password),
     path('employees/', include('employees.urls')),
+    path('training/', include('training.urls')),
 ]

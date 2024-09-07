@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}All Trainings{% endblock title %}
+{% block body %}
+<div class="my-3 container-fluid">
+    <h4>All Trainings ({{total_training_nos}})</h4>
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if trainings.has_previous %}
+                    <li class="page-item"><a class='page-link' href="?page=1">First</a></li>
+                    <li class="page-item"><a class='page-link' href="?page={{ trainings.previous_page_number }}"><i class="bi bi-caret-left-fill"></i></a></li>
+                {% endif %}
+                <span class="current mx-3">
+                    Page {{ trainings.number }} of {{ trainings.paginator.num_pages }}
+                </span>
+                {% if trainings.has_next %}
+                    <li class='page-item'><a class='page-link' href="?page={{ trainings.next_page_number }}"><i class="bi bi-caret-right-fill"></i></a></li>
+                    <li class='page-item'><a class='page-link' href="?page={{ trainings.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Subject</th>
+                    <th>Start Date</th>
+                    <th>Days</th>
+                    <th>Remark</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trng in trainings %}
+                <tr>
+                    <td>{{ trng.id }}</td>
+                    <td><a href="/training/trainees?training_id={{trng.id}}">{{ trng.subject }}</a></td>
+                    <td>{{ trng.start_date }}</td>
+                    <td>{{ trng.days }}</td>
+                    <td>{{ trng.remark }}</td>
+                    <td><a href="/training/edit_training?training_id={{trng.id}}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if trainings.has_previous %}
+                    <li class="page-item"><a class='page-link' href="?page=1">First</a></li>
+                    <li class="page-item"><a class='page-link' href="?page={{ trainings.previous_page_number }}"><i class="bi bi-caret-left-fill"></i></a></li>
+                {% endif %}
+                <span class="current mx-3">
+                    Page {{ trainings.number }} of {{ trainings.paginator.num_pages }}
+                </span>
+                {% if trainings.has_next %}
+                    <li class='page-item'><a class='page-link' href="?page={{ trainings.next_page_number }}"><i class="bi bi-caret-right-fill"></i></a></li>
+                    <li class='page-item'><a class='page-link' href="?page={{ trainings.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <form action="/trainings/all_trainings" method="get">
+            <input type="number" name='page' placeholder="Page number">
+            <button class='btn btn-sm btn-primary'>Goto Page</button>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

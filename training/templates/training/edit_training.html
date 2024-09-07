@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Edit training{% endblock title %}
+{% block body %}
+<div class="my-3 container">
+    <h4>Edit training</h4>
+    <form method='POST' action="/training/edit_training?training_id={{request.GET.training_id}}" >
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+                <div class="col-md-4 mb-2">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type='submit' id='submitBtn' class='btn btn-primary px-5'
+            onclick="return confirm('Confirm the data before submit. Click OK to continue ?')">Update</button>
+    </form>
+    
+</div>
+
+{% endblock body %}

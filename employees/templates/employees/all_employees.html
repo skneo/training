@@ -24,7 +24,6 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Emp No</th>
                     <th>Name</th>
                     <th>Designation</th>
@@ -39,9 +38,7 @@
             <tbody>
                 {% for empl in employees %}
                 <tr>
-                    {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
-                    <td>{{ empl.id }}</td>
-                    <td>{{ empl.emp_no }}</td>
+                    <td><a href= "/employees/view_employee?emp_no={{empl.emp_no}}">{{ empl.emp_no }}</a></td>
                     <td>{{ empl.name }}</td>
                     <td>{{ empl.designation }}</td>
                     <td>{{ empl.department }}</td>
@@ -49,7 +46,7 @@
                     <td>{{ empl.phone }}</td>
                     <td>{{ empl.email }}</td>
                     <td>{{ empl.remark }}</td>
-                    <td><a href="/employees/edit_employee?emp_id={{empl.id}}">Edit</a></td>
+                    <td><a href="/employees/edit_employee?emp_no={{empl.emp_no}}">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
