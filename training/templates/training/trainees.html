@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Trainees{% endblock title %}
 {% block body %}
-<div class="my-3 container-fluid">
+<div class="my-3 container">
     <h4>Training Detail</h4>
     <div class="training-detail">
         <p>Subject: {{training.subject}}</p>
         <p>Start Date: {{training.start_date}}</p>
         <p>Days: {{training.days}}</p>
     </div>
-    <div class="add-trainee">
-        <form method='GET' action="/students/new_enrollment">
-            <div class='mb-3 col-md-4'>
-                <label class='form-label float-start'>Add Trainee</label>
-                <input type='number' class='form-control' placeholder='Enter Employee No' name='employee_no' required>
-                <input type="text" hidden value="{{request.GET.training_id}}" name='class_name'>
-            </div>
-        <button type='submit' class='btn btn-primary btn-sm'>Find Student</button>
-    </form>
+    <button class="btn btn-sm btn-outline-primary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Add Trainees
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="">
+            <h5>Enter emloyee number each in new line</h5>
+            <form action="/training/add_trainees" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="training_id" value='{{request.GET.training_id}}'>
+                <textarea class='form-control mb-2' rows='5' placeholder='Employee No' name='employees' required></textarea>
+                <button type="submit" class='btn btn-sm btn-primary'>Add Traineest</button>
+            </form>
+        </div>
     </div>
     <h4>Trainees ({{trainees|length}})</h4>
     <div class="table-responsive">
@@ -37,7 +41,7 @@
                 <tr>
                     <td>{{ forloop.counter}}</td>
                     <td>{{trainee.employee.emp_no}}</td>
-                    <td><a href="/employees/view_employee?emp_id={{trainee.employee.id}}">{{ trainee.employee.name }}</a></td>
+                    <td><a href="/employees/view_employee?emp_no={{trainee.employee.emp_no}}">{{ trainee.employee.name }}</a></td>
                     <td>{{ trainee.employee.designation }}</td>
                     <td>{{ trainee.employee.department }}</td>
                     <td>{{ trainee.employee.posting_place }}</td>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Training , Trainee
 from.forms import TrainingModelForm
 from django.contrib import messages
+from employees.models import Employee
 
 
 def all_trainings(request):
@@ -47,3 +48,27 @@ def edit_training(request):
     else:
         form = TrainingModelForm(instance=training)
     return render(request, 'training/edit_training.html', {'form': form})
+
+def add_trainees(request):
+    if request.method == 'POST':
+        employees = request.POST.get('employees').split('\n')
+        training = Training.objects.get(id=request.POST.get('training_id'))
+        # if an employee is already added in the training do not add him again
+
+        for employee_no in employees:
+            # check if employee number is a vlid inyteger
+            try:
+                employee_no_int = int(employee_no)
+                employee=Employee.objects.get(emp_no=employee_no_int)
+                if Trainee.objects.filter(training=training, employee=employee).exists():
+                    messages.warning(request, f"Employee {employee_no} is already added to this training.")
+                else:
+                    Trainee.objects.create(training=training, employee=employee)
+            except:
+                messages.error(request, f"{employee_no} not added")
+                continue
+        messages.success(request, "Trainees added successfully")
+        return redirect('/training/trainees?training_id='+str(training.id))
+
+                
+        
