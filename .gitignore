@@ -5,5 +5,4 @@ static_root/
 __pycache__
 media
 settings.json
-db.sqlite3
 .venv
