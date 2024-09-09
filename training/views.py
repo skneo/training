@@ -3,8 +3,9 @@ from .models import Training , Trainee
 from.forms import TrainingModelForm
 from django.contrib import messages
 from employees.models import Employee
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='/login')
 def all_trainings(request):
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     all_trainings_list = Training.objects.all()
@@ -20,12 +21,12 @@ def all_trainings(request):
         trainings = paginator.page(paginator.num_pages)
     context = {'trainings': trainings,'total_training_nos':total_training_nos}
     return render(request, 'training/all.html', context)
-
+@login_required(login_url='/login')
 def trainees(request):
     trainees=Trainee.objects.filter(training__id=request.GET.get('training_id'))
     training=Training.objects.get(id=request.GET.get('training_id'))
     return render(request, 'training/trainees.html', {'trainees':trainees,'training':training})
-
+@login_required(login_url='/login')
 def add_training(request):
     if request.method == 'POST':
         form = TrainingModelForm(request.POST)
@@ -36,7 +37,7 @@ def add_training(request):
     else:
         form = TrainingModelForm()
     return render(request, 'training/add_training.html', {'form': form})
-
+@login_required(login_url='/login')
 def edit_training(request):
     training = Training.objects.get(id=request.GET['training_id'])
     if request.method == 'POST':
@@ -48,15 +49,12 @@ def edit_training(request):
     else:
         form = TrainingModelForm(instance=training)
     return render(request, 'training/edit_training.html', {'form': form})
-
+@login_required(login_url='/login')
 def add_trainees(request):
     if request.method == 'POST':
         employees = request.POST.get('employees').split('\n')
         training = Training.objects.get(id=request.POST.get('training_id'))
-        # if an employee is already added in the training do not add him again
-
         for employee_no in employees:
-            # check if employee number is a vlid inyteger
             try:
                 employee_no_int = int(employee_no)
                 employee=Employee.objects.get(emp_no=employee_no_int)

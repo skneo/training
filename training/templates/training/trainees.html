@@ -3,6 +3,7 @@
 {% block body %}
 <div class="my-3 container">
     <h4>Training Detail</h4>
+    <a class='me-3' href="/training/edit_training?training_id={{request.GET.training_id}}">Edit</a>
     <div class="training-detail">
         <p>Subject: {{training.subject}}</p>
         <p>Start Date: {{training.start_date}}</p>
@@ -11,14 +12,14 @@
     <button class="btn btn-sm btn-outline-primary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         Add Trainees
     </button>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse mb-3" id="collapseExample">
         <div class="">
             <h5>Enter emloyee number each in new line</h5>
             <form action="/training/add_trainees" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="training_id" value='{{request.GET.training_id}}'>
                 <textarea class='form-control mb-2' rows='5' placeholder='Employee No' name='employees' required></textarea>
-                <button type="submit" class='btn btn-sm btn-primary'>Add Traineest</button>
+                <button type="submit" class='btn btn-sm btn-primary'>Add Trainees</button>
             </form>
         </div>
     </div>

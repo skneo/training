@@ -2,6 +2,14 @@
 {% block title %}All Employees{% endblock title %}
 {% block body %}
 <div class="my-3 container-fluid">
+    <form class="mb-3" role="search" action='/employees/view_employee'>
+        <div class='input-group'>
+            <input name='emp_no' class="form-control" type="number" min='1' aria-label="Search" placeholder='enter employee no' required>
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form> 
     <h4>All Employees ({{total_emp_nos}})</h4>
     <div class="pagination">
         <nav aria-label="Page navigation example">
@@ -46,7 +54,9 @@
                     <td>{{ empl.phone }}</td>
                     <td>{{ empl.email }}</td>
                     <td>{{ empl.remark }}</td>
-                    <td><a href="/employees/edit_employee?emp_no={{empl.emp_no}}">Edit</a></td>
+                    <td>
+                    <a href= "/employees/view_employee?emp_no={{empl.emp_no}}">Trainings</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

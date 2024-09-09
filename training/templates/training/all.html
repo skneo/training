@@ -40,7 +40,10 @@
                     <td>{{ trng.start_date }}</td>
                     <td>{{ trng.days }}</td>
                     <td>{{ trng.remark }}</td>
-                    <td><a href="/training/edit_training?training_id={{trng.id}}">Edit</a></td>
+                    <td>
+                        
+                        <a href="/training/trainees?training_id={{trng.id}}">Trainees</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

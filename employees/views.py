@@ -3,7 +3,9 @@ from .forms import EmployeeModelForm
 from django.contrib import messages
 from .models import Employee
 from training.models import Trainee
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login')
 def all_employees(request):
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     all_employee_list = Employee.objects.all().order_by('emp_no')
@@ -19,7 +21,7 @@ def all_employees(request):
         employees = paginator.page(paginator.num_pages)
     context = {'employees': employees,'total_emp_nos':total_emp_nos}
     return render(request, 'employees/all_employees.html', context)
-
+@login_required(login_url='/login')
 def add_employee(request):
     if request.method == 'POST':
         form = EmployeeModelForm(request.POST)
@@ -30,7 +32,7 @@ def add_employee(request):
     else:
         form = EmployeeModelForm()
     return render(request, 'employees/add_employee.html', {'form': form})
-
+@login_required(login_url='/login')
 def view_employee(request):
     try:
         employee = Employee.objects.get(emp_no=int(request.GET['emp_no']))
@@ -41,7 +43,7 @@ def view_employee(request):
         messages.error(
             request, f"Error! No Employee found with employee no {request.GET['emp_no']}")
     return redirect('/employees')
-
+@login_required(login_url='/login')
 def edit_employee(request):
     employee = Employee.objects.get(emp_no=request.GET['emp_no'])
     if request.method == 'POST':
